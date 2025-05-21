@@ -70,11 +70,13 @@ document.addEventListener("DOMContentLoaded", function () {
             // Supongamos que data tiene { imagen_url, prediccion }
             imagenProcesada.src = data.imagen_url;
             console.log("Imagen URL:", data.imagen_url);
+            // Agrega esta línea para depurar:
+            console.log("Valor recibido para data.prediccion:", data.prediccion, typeof data.prediccion); 
             const clases = {
-            1: "Glioma Tumor",
-            2: "Meningioma Tumor",
-            3: "No Tumor",
-            4: "Pituitary Tumor"
+            0: "Glioma Tumor",
+            1: "Meningioma Tumor",
+            2: "No Tumor",
+            3: "Pituitary Tumor"
             };
 
             const claseTexto = clases[data.prediccion] || `Clase desconocida (${data.prediccion})`;
