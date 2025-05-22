@@ -19,7 +19,7 @@ model.fc = nn.Linear(model.fc.in_features, 4)  # 4 clases
 
 try:
     model.load_state_dict(torch.load(
-        r'D:\Documentos\Documentos - copia\Uni\TFG\backend\model\mejor_modelo.pth',
+        r'model\mejor_modelo.pth',
         map_location=torch.device('cpu')
     ))
     print("Pesos cargados correctamente en la API.")

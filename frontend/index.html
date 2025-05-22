@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="/frontend/styles.css" />
     <title>API IA Radiografías</title>
 </head>
+
 <body>
     <div class="container">
         <div class="navbar">
@@ -17,6 +19,17 @@
             <h2>Clasificador de radiografías cerebrales mediante IA</h2>
         </div>
         <div class="content">
+
+            <div id="resultado" class="mt-4" style="display: none;">
+                <div class="cuadro row">
+                    <p><strong>Imagen procesada</strong></p>
+                    <div class="row img_result">
+                        <img id="imagen-procesada" src="">
+                        <p id="prediccion-label"></p>
+                        <i><p id="description-label"></p></i>
+                    </div>
+                </div>
+            </div>
             <form id="procesar-form" action="/procesar" method="POST" enctype="multipart/form-data">
                 <div class="cuadro row">
                     <div class="col-md-6">
@@ -26,12 +39,14 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="grayscale" name="grayscale" />
                                     <label class="form-check-label" for="grayscale">Escala de Grises</label>
-                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Convertir imagen a escala de grises" style="cursor: help;">?</span>
+                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                        title="Convertir imagen a escala de grises" style="cursor: help;">?</span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="method" class="form-label">Método</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Método para escala de grises" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Método para escala de grises" style="cursor: help;">?</span>
                                 <select name="method" id="method" class="form-select">
                                     <option value="luminosity">Luminosidad</option>
                                     <option value="average">Promedio</option>
@@ -45,12 +60,14 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="resize" name="resize" />
                                     <label class="form-check-label" for="resize">Redimensionar</label>
-                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Si se aplica redimensionado" style="cursor: help;">?</span>
+                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                        title="Si se aplica redimensionado" style="cursor: help;">?</span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="target_size" class="form-label">Tamaño objetivo</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Tamaño objetivo para redimensionar" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Tamaño objetivo para redimensionar" style="cursor: help;">?</span>
                                 <select name="target_size" id="target_size" class="form-select">
                                     <option value="(224,224)">(224,224) <span id="reco">Recomendado</span></option>
                                     <option value="(512,512)">(512,512)</option>
@@ -58,14 +75,18 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="keep_aspect_ratio" name="keep_aspect_ratio" />
-                                    <label class="form-check-label" for="keep_aspect_ratio">Mantener relación de aspecto</label>
-                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Mantener relación de aspecto" style="cursor: help;">?</span>
+                                    <input class="form-check-input" type="checkbox" id="keep_aspect_ratio"
+                                        name="keep_aspect_ratio" />
+                                    <label class="form-check-label" for="keep_aspect_ratio">Mantener relación de
+                                        aspecto</label>
+                                    <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                        title="Mantener relación de aspecto" style="cursor: help;">?</span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="interpolation" class="form-label">Interpolación</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Método de interpolación" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Método de interpolación"
+                                    style="cursor: help;">?</span>
                                 <select name="interpolation" id="interpolation" class="form-select">
                                     <option value="bilinear">Bilineal</option>
                                     <option value="nearest">Vecino más cercano</option>
@@ -76,13 +97,16 @@
                         <p><strong>Normalización de valores de píxeles</strong></p>
                         <div class="param p1 mb-4">
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="normalize" name="normalize" value="true" />
+                                <input class="form-check-input" type="checkbox" id="normalize" name="normalize"
+                                    value="true" />
                                 <label class="form-check-label" for="normalize">Normalizar</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Si se aplica normalización" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Si se aplica normalización" style="cursor: help;">?</span>
                             </div>
                             <div class="mb-3">
                                 <label for="normalize_method" class="form-label">Método</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Método de normalización" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Método de normalización"
+                                    style="cursor: help;">?</span>
                                 <select name="normalize_method" id="normalize_method" class="form-select">
                                     <option value="minmax">minmax Recomendado</option>
                                     <option value="zscore">zscore</option>
@@ -91,10 +115,11 @@
                             </div>
                             <div class="mb-3" id="minmax-range-group">
                                 <label for="range_minmax" class="form-label">Rango (minmax)</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Solo si se usa `minmax`" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Solo si se usa `minmax`"
+                                    style="cursor: help;">?</span>
                                 <select name="range_minmax" id="range_minmax" class="form-select">
-                                    <option value="-1,1">-1,1</option>
                                     <option value="0,1">0,1</option>
+                                    <option value="-1,1">-1,1</option>
                                 </select>
                             </div>
                         </div>
@@ -104,7 +129,8 @@
                         <div class="param p2 mb-4">
                             <div class="mb-3">
                                 <label for="flip" class="form-label">Voltear</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Espejado de la imagen" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Espejado de la imagen"
+                                    style="cursor: help;">?</span>
                                 <select name="flip" id="flip" class="form-select">
                                     <option value="none">Ninguno</option>
                                     <option value="horizontal">Horizontal</option>
@@ -113,7 +139,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="rotation" class="form-label">Rotación</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Rotación fija o aleatoria" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Rotación fija o aleatoria" style="cursor: help;">?</span>
                                 <select name="rotation" id="rotation" class="form-select">
                                     <option value="0">0</option>
                                     <option value="90">90</option>
@@ -124,16 +151,20 @@
                             </div>
                             <div class="mb-3">
                                 <label for="brightness_range" class="form-label">Rango de Brillo</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Rango de brillo (escala)" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Rango de brillo (escala)" style="cursor: help;">?</span>
                                 <select name="brightness_range" id="brightness_range" class="form-select">
-                                    <option value="(1.1,1.0)">(1.1,1.0) Sin cambio en el brillo (Imagen original)</option>
+                                    <option value="(1.1,1.0)">(1.1,1.0) Sin cambio en el brillo (Imagen original)
+                                    </option>
                                     <option value="(0.8,1.2)">(0.8,1.2) Variación de brillo moderada (+/-20%)</option>
-                                    <option value="(0.5,1.5)">(0.5,1.5) Variación amplia (Hasta 50% menos o mas brillante)</option>
+                                    <option value="(0.5,1.5)">(0.5,1.5) Variación amplia (Hasta 50% menos o mas
+                                        brillante)</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="zoom_range" class="form-label">Rango de Zoom</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Zoom aleatorio" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Zoom aleatorio"
+                                    style="cursor: help;">?</span>
                                 <select name="zoom_range" id="zoom_range" class="form-select">
                                     <option value="(1.0,1.0)">(1.0,1.0) Sin zoom (Imagen original)</option>
                                     <option value="(0.9,1.1)">(0.9,1.1) Zoom leve (+/-10%)</option>
@@ -142,7 +173,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="noise" class="form-label">Ruido</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Tipo de ruido sintético" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Tipo de ruido sintético"
+                                    style="cursor: help;">?</span>
                                 <select name="noise" id="noise" class="form-select">
                                     <option value="none">Ninguno</option>
                                     <option value="Gaussian">Gaussiano</option>
@@ -154,7 +186,8 @@
                         <div class="param p5 mb-4">
                             <div class="mb-3">
                                 <label for="model" class="form-label">Modelo</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Modelo para clasificación" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Modelo para clasificación" style="cursor: help;">?</span>
                                 <select name="model" id="model" class="form-select">
                                     <option value="alexnet">AlexNet</option>
                                     <option value="vgg19">VGG19</option>
@@ -164,7 +197,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="batch_size" class="form-label">Tamaño del Lote</label>
-                                <span class="ms-1 text-primary" data-bs-toggle="tooltip" title="Tamaño del lote para procesamiento" style="cursor: help;">?</span>
+                                <span class="ms-1 text-primary" data-bs-toggle="tooltip"
+                                    title="Tamaño del lote para procesamiento" style="cursor: help;">?</span>
                                 <select name="batch_size" id="batch_size" class="form-select">
                                     <option value="32">32</option>
                                     <option value="64">64</option>
@@ -175,22 +209,20 @@
                         <p><strong>Archivo</strong></p>
                         <div class="mb-3">
                             <label for="file" class="form-label">Seleccione archivo</label>
-                            <input class="form-control" type="file" id="file" name="file" accept=".png,.jpg,.jpeg" required />
+                            <input class="form-control" type="file" id="file" name="file" accept=".png,.jpg,.jpeg"
+                                required />
                         </div>
-                        <div>
+                        <div class="button-group">
                             <button type="submit" id="submit" class="btn btn-primary">Procesar</button>
+                            <button type="button" id="reset" class="btn btn-secondary">Restaurar</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <div id="resultado" class="mt-4" style="display: none;">
-                <img id="imagen-procesada" src="" style="max-width: 500px; display: block; margin-top: 20px;">
-                <p id="prediccion-label" style="margin-top: 10px;"></p>
-            </div>
         </div>
     </div>
     <script src="/frontend/script.js" defer></script>
 
 </body>
-</html>
 
+</html>
